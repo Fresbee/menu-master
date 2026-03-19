@@ -200,3 +200,12 @@ Would you be able to tweak the delete_recipe() method to return an HTTP 500-seri
 
 ---
 
+I would like to create a POST /recipe/{title} endpoint. Using the stub I provided, please provide an implementation for it.
+
+---
+
+How can we enforce required fields on the Recipe schema? This is important for the POST and PUT methods for their post body content. Please make this refactor for me.
+
+---
+
+In order to exercise this API, would you be able to generate some automated tests? The goal is check for HTTP status codes and responses for the inputs. Focus on the /recipe endpoints, since authentication has been tested in other ways. The Python unittest framework seems like a good basis for this.
