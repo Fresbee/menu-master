@@ -1,5 +1,10 @@
-from pydantic import BaseModel, Field
+from typing import Annotated
+
+from pydantic import BaseModel, Field, StringConstraints
+
 from api.models.recipe import Ingredient
+
+NonEmptyStr = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
 class RecipeWrite(BaseModel):
     yieldAmount: int = Field(
@@ -11,13 +16,13 @@ class RecipeWrite(BaseModel):
         description="list of ingredients and their measurements",
         min_length=1,
     )
-    instructions: list[str] = Field(
+    instructions: list[NonEmptyStr] = Field(
         description="step-by-step instructions",
         min_length=1,
     )
 
 class Recipe(RecipeWrite):
-    organization: str = Field(
+    organization: NonEmptyStr = Field(
         description="restaurant that owns this recipe as intellectual property",
         examples=["Tuscan Dreams"],
     )

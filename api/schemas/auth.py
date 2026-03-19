@@ -1,4 +1,8 @@
-from pydantic import BaseModel, EmailStr, Field
+from typing import Annotated
+
+from pydantic import BaseModel, EmailStr, Field, StringConstraints
+
+NonEmptyStr = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
 class RegisterRequest(BaseModel):
     """
@@ -7,8 +11,8 @@ class RegisterRequest(BaseModel):
     """
 
     email: EmailStr = Field(description="a user email address associated with the account", examples=["john.doe@tuscandreams.biz"])
-    password: str = Field(description="a user's secret password", examples=["12345678"])
-    organization: str = Field(description="a user's organization they work for", examples=["Tuscan Dreams"])
+    password: NonEmptyStr = Field(description="a user's secret password", examples=["12345678"])
+    organization: NonEmptyStr = Field(description="a user's organization they work for", examples=["Tuscan Dreams"])
 
 class LoginRequest(BaseModel):
     """
@@ -17,7 +21,7 @@ class LoginRequest(BaseModel):
     """
 
     username: EmailStr = Field(description="a user email address associated with the account", examples=["john.doe@tuscandreams.biz"])
-    password: str = Field(description="a user's secret password", examples=["12345678"])
+    password: NonEmptyStr = Field(description="a user's secret password", examples=["12345678"])
 
 class TokenResponse(BaseModel):
     """

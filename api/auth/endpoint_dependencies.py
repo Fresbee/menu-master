@@ -1,6 +1,6 @@
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import jwt, JWTError
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, Request, status
 
 from .security import ALGORITHM
 from api.core.config import settings
@@ -8,7 +8,8 @@ from api.models.user import User
 
 bearer_scheme = HTTPBearer(auto_error=False)
 
-async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme)) -> User:
+async def get_current_user(request: Request,
+                           credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme)) -> User:
     """
     Dependency to retrieve the currently authenticated user based on the provided JWT token.
     This is a required dependency for endpoints that need user authentication.
@@ -19,11 +20,13 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(b
     :return: The authenticated User object.
     """
 
-    if not credentials:
+    token_value = credentials.credentials if credentials else request.cookies.get("access_token")
+
+    if not token_value:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
 
     try:
-        payload = jwt.decode(credentials.credentials,
+        payload = jwt.decode(token_value,
                              settings.jwt_secret_key,
                              algorithms=[ALGORITHM])
 

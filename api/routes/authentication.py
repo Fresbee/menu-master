@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException, Response, Request, status
 from datetime import datetime, timezone
+from pymongo.errors import DuplicateKeyError
 
 from api.auth.security import create_access_token, create_refresh_token, hash_password, verify_password
 from api.models.user import User
@@ -14,14 +15,19 @@ router = APIRouter(prefix="/auth", tags=["Authentication"])
              status_code=status.HTTP_200_OK,
              response_model=TokenResponse,
              responses={status.HTTP_409_CONFLICT: {"description": "Email already registered"}})
-async def register(register_request: RegisterRequest) -> TokenResponse:
+async def register(register_request: RegisterRequest, response: Response) -> TokenResponse:
     if await User.find_one({"email": register_request.email}):
         raise HTTPException(status.HTTP_409_CONFLICT, "Email already registered")
 
     user = User(email=register_request.email, password_hash=hash_password(register_request.password), organization=register_request.organization)
-    await user.insert()
+    try:
+        await user.insert()
+    except DuplicateKeyError:
+        raise HTTPException(status.HTTP_409_CONFLICT, "Email already registered")
 
-    return await issue_tokens(user)
+    tokens = await issue_tokens(user)
+    set_session_cookies(response, tokens)
+    return tokens
 
 
 @router.post("/login",
@@ -43,27 +49,7 @@ async def login(data: LoginRequest, response: Response) -> TokenResponse:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "User account is disabled")
 
     tokens = await issue_tokens(user)
-
-    # TODO: Change the secure=False to True once HTTPS certificates are added
-    response.set_cookie(
-        key="refresh_token",
-        value=tokens.refresh_token,
-        httponly=True,
-        secure=False,
-        samesite="lax",
-        path="/auth/refresh"
-    )
-
-    # TODO: Change the secure=False to True once HTTPS certificates are added
-    response.set_cookie(
-        key="access_token",
-        value=tokens.access_token,
-        httponly=True,
-        secure=False,
-        samesite="lax",
-        path="/"
-    )
-
+    set_session_cookies(response, tokens)
     return tokens
 
 
@@ -102,26 +88,7 @@ async def refresh(request: Request, response: Response) -> TokenResponse:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "User not found or disabled")
 
     tokens = await issue_tokens(user)
-
-    # Rotate cookies 🔁
-    response.set_cookie(
-        key="refresh_token",
-        value=tokens.refresh_token,
-        httponly=True,
-        secure=False,   # True in prod
-        samesite="lax",
-        path="/auth/refresh"
-    )
-
-    response.set_cookie(
-        key="access_token",
-        value=tokens.access_token,
-        httponly=True,
-        secure=False,
-        samesite="lax",
-        path="/"
-    )
-
+    set_session_cookies(response, tokens)
     return tokens
 
 
@@ -145,3 +112,25 @@ async def issue_tokens(user: User) -> TokenResponse:
     refresh_token = await create_refresh_token(user.id)
 
     return TokenResponse(access_token=access_token, refresh_token=refresh_token)
+
+
+def set_session_cookies(response: Response, tokens: TokenResponse) -> None:
+    # TODO: Change the secure=False to True once HTTPS certificates are added
+    response.set_cookie(
+        key="refresh_token",
+        value=tokens.refresh_token,
+        httponly=True,
+        secure=False,
+        samesite="lax",
+        path="/auth/refresh"
+    )
+
+    # TODO: Change the secure=False to True once HTTPS certificates are added
+    response.set_cookie(
+        key="access_token",
+        value=tokens.access_token,
+        httponly=True,
+        secure=False,
+        samesite="lax",
+        path="/"
+    )

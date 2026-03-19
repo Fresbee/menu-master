@@ -1,0 +1,1007 @@
+[
+    {
+        "title": "Spaghetti alla Carbonara",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "spaghetti",
+                "quantity": "400 g"
+            },
+            {
+                "name": "guanciale",
+                "quantity": "150 g"
+            },
+            {
+                "name": "eggs",
+                "quantity": "3 large"
+            },
+            {
+                "name": "pecorino romano cheese",
+                "quantity": "1 cup grated"
+            },
+            {
+                "name": "black pepper",
+                "quantity": "1 tsp"
+            },
+            {
+                "name": "salt",
+                "quantity": "to taste"
+            }
+        ],
+        "instructions": [
+            "Cook spaghetti in salted boiling water until al dente.",
+            "Dice guanciale and cook until crispy in a pan.",
+            "Whisk eggs with grated pecorino and black pepper.",
+            "Drain pasta and combine with guanciale off heat.",
+            "Quickly stir in egg mixture to create a creamy sauce.",
+            "Serve immediately with extra cheese."
+        ]
+    },
+    {
+        "title": "Margherita Pizza",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "pizza dough",
+                "quantity": "1 lb"
+            },
+            {
+                "name": "San Marzano tomatoes",
+                "quantity": "1 cup crushed"
+            },
+            {
+                "name": "fresh mozzarella",
+                "quantity": "8 oz"
+            },
+            {
+                "name": "fresh basil leaves",
+                "quantity": "handful"
+            },
+            {
+                "name": "olive oil",
+                "quantity": "2 tbsp"
+            },
+            {
+                "name": "salt",
+                "quantity": "to taste"
+            }
+        ],
+        "instructions": [
+            "Preheat oven to highest temperature.",
+            "Roll out dough and spread tomato sauce.",
+            "Add sliced mozzarella and drizzle olive oil.",
+            "Bake until crust is golden and cheese bubbles.",
+            "Top with fresh basil and serve."
+        ]
+    },
+    {
+        "title": "Lasagna Bolognese",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "lasagna sheets",
+                "quantity": "12"
+            },
+            {
+                "name": "ground beef",
+                "quantity": "300 g"
+            },
+            {
+                "name": "ground pork",
+                "quantity": "200 g"
+            },
+            {
+                "name": "tomato sauce",
+                "quantity": "2 cups"
+            },
+            {
+                "name": "ricotta",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "mozzarella",
+                "quantity": "2 cups"
+            },
+            {
+                "name": "onion",
+                "quantity": "1 diced"
+            },
+            {
+                "name": "carrot",
+                "quantity": "1 diced"
+            },
+            {
+                "name": "celery",
+                "quantity": "1 stalk diced"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Risotto alla Milanese",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "arborio rice",
+                "quantity": "1.5 cups"
+            },
+            {
+                "name": "saffron threads",
+                "quantity": "1 pinch"
+            },
+            {
+                "name": "chicken stock",
+                "quantity": "5 cups"
+            },
+            {
+                "name": "parmesan",
+                "quantity": "1/2 cup"
+            },
+            {
+                "name": "butter",
+                "quantity": "3 tbsp"
+            },
+            {
+                "name": "onion",
+                "quantity": "1 small diced"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Chicken Piccata",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "chicken breasts",
+                "quantity": "4"
+            },
+            {
+                "name": "lemon juice",
+                "quantity": "1/3 cup"
+            },
+            {
+                "name": "capers",
+                "quantity": "3 tbsp"
+            },
+            {
+                "name": "butter",
+                "quantity": "3 tbsp"
+            },
+            {
+                "name": "white wine",
+                "quantity": "1/2 cup"
+            },
+            {
+                "name": "parsley",
+                "quantity": "2 tbsp chopped"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Eggplant Parmesan",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "eggplant",
+                "quantity": "2 large sliced"
+            },
+            {
+                "name": "tomato sauce",
+                "quantity": "2 cups"
+            },
+            {
+                "name": "mozzarella",
+                "quantity": "2 cups"
+            },
+            {
+                "name": "parmesan",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "breadcrumbs",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "eggs",
+                "quantity": "2"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Minestrone Soup",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "mixed vegetables",
+                "quantity": "3 cups"
+            },
+            {
+                "name": "cannellini beans",
+                "quantity": "1 can"
+            },
+            {
+                "name": "pasta",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "vegetable broth",
+                "quantity": "6 cups"
+            },
+            {
+                "name": "tomatoes",
+                "quantity": "1 can"
+            },
+            {
+                "name": "olive oil",
+                "quantity": "2 tbsp"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Osso Buco",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "veal shanks",
+                "quantity": "4"
+            },
+            {
+                "name": "white wine",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "beef stock",
+                "quantity": "2 cups"
+            },
+            {
+                "name": "carrot",
+                "quantity": "1 diced"
+            },
+            {
+                "name": "celery",
+                "quantity": "1 diced"
+            },
+            {
+                "name": "onion",
+                "quantity": "1 diced"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Gnocchi al Pesto",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "potato gnocchi",
+                "quantity": "500 g"
+            },
+            {
+                "name": "basil pesto",
+                "quantity": "1/2 cup"
+            },
+            {
+                "name": "parmesan",
+                "quantity": "1/2 cup"
+            },
+            {
+                "name": "pine nuts",
+                "quantity": "2 tbsp"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Bruschetta",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "baguette",
+                "quantity": "1 sliced"
+            },
+            {
+                "name": "tomatoes",
+                "quantity": "2 diced"
+            },
+            {
+                "name": "garlic",
+                "quantity": "2 cloves"
+            },
+            {
+                "name": "basil",
+                "quantity": "2 tbsp"
+            },
+            {
+                "name": "olive oil",
+                "quantity": "2 tbsp"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Caprese Salad",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "tomatoes",
+                "quantity": "3 sliced"
+            },
+            {
+                "name": "fresh mozzarella",
+                "quantity": "8 oz"
+            },
+            {
+                "name": "basil",
+                "quantity": "handful"
+            },
+            {
+                "name": "olive oil",
+                "quantity": "2 tbsp"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Tiramisu",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "ladyfingers",
+                "quantity": "24"
+            },
+            {
+                "name": "espresso",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "mascarpone",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "eggs",
+                "quantity": "3"
+            },
+            {
+                "name": "cocoa powder",
+                "quantity": "2 tbsp"
+            },
+            {
+                "name": "sugar",
+                "quantity": "1/2 cup"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Panna Cotta",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "heavy cream",
+                "quantity": "2 cups"
+            },
+            {
+                "name": "sugar",
+                "quantity": "1/3 cup"
+            },
+            {
+                "name": "gelatin",
+                "quantity": "2 tsp"
+            },
+            {
+                "name": "vanilla",
+                "quantity": "1 tsp"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Seafood Linguine",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "linguine",
+                "quantity": "400 g"
+            },
+            {
+                "name": "shrimp",
+                "quantity": "200 g"
+            },
+            {
+                "name": "mussels",
+                "quantity": "200 g"
+            },
+            {
+                "name": "garlic",
+                "quantity": "3 cloves"
+            },
+            {
+                "name": "white wine",
+                "quantity": "1/2 cup"
+            },
+            {
+                "name": "parsley",
+                "quantity": "2 tbsp"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Stuffed Shells",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "jumbo pasta shells",
+                "quantity": "20"
+            },
+            {
+                "name": "ricotta",
+                "quantity": "1.5 cups"
+            },
+            {
+                "name": "spinach",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "mozzarella",
+                "quantity": "2 cups"
+            },
+            {
+                "name": "tomato sauce",
+                "quantity": "2 cups"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Veal Marsala",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "veal cutlets",
+                "quantity": "4"
+            },
+            {
+                "name": "marsala wine",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "mushrooms",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "butter",
+                "quantity": "3 tbsp"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Chicken Parmesan",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "chicken breasts",
+                "quantity": "4"
+            },
+            {
+                "name": "breadcrumbs",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "parmesan",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "mozzarella",
+                "quantity": "2 cups"
+            },
+            {
+                "name": "tomato sauce",
+                "quantity": "2 cups"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Spinach Ricotta Ravioli",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "ravioli pasta",
+                "quantity": "500 g"
+            },
+            {
+                "name": "ricotta",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "spinach",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "parmesan",
+                "quantity": "1/2 cup"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Polenta",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "cornmeal",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "water",
+                "quantity": "4 cups"
+            },
+            {
+                "name": "butter",
+                "quantity": "2 tbsp"
+            },
+            {
+                "name": "parmesan",
+                "quantity": "1/2 cup"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Italian Wedding Soup",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "meatballs",
+                "quantity": "20"
+            },
+            {
+                "name": "spinach",
+                "quantity": "2 cups"
+            },
+            {
+                "name": "chicken broth",
+                "quantity": "6 cups"
+            },
+            {
+                "name": "pasta",
+                "quantity": "1/2 cup"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Calzone",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "pizza dough",
+                "quantity": "1 lb"
+            },
+            {
+                "name": "ricotta",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "mozzarella",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "ham",
+                "quantity": "1/2 cup"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Shrimp Scampi",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "shrimp",
+                "quantity": "400 g"
+            },
+            {
+                "name": "garlic",
+                "quantity": "4 cloves"
+            },
+            {
+                "name": "butter",
+                "quantity": "3 tbsp"
+            },
+            {
+                "name": "lemon juice",
+                "quantity": "2 tbsp"
+            },
+            {
+                "name": "white wine",
+                "quantity": "1/2 cup"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Zuppa Toscana",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "sausage",
+                "quantity": "300 g"
+            },
+            {
+                "name": "potatoes",
+                "quantity": "3 sliced"
+            },
+            {
+                "name": "kale",
+                "quantity": "2 cups"
+            },
+            {
+                "name": "cream",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "chicken broth",
+                "quantity": "5 cups"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Baked Ziti",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "ziti pasta",
+                "quantity": "400 g"
+            },
+            {
+                "name": "ricotta",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "mozzarella",
+                "quantity": "2 cups"
+            },
+            {
+                "name": "tomato sauce",
+                "quantity": "2 cups"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Prosciutto Melon Salad",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "prosciutto",
+                "quantity": "8 slices"
+            },
+            {
+                "name": "cantaloupe",
+                "quantity": "1 sliced"
+            },
+            {
+                "name": "mint",
+                "quantity": "1 tbsp"
+            },
+            {
+                "name": "olive oil",
+                "quantity": "1 tbsp"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Arancini",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "risotto rice",
+                "quantity": "2 cups"
+            },
+            {
+                "name": "mozzarella",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "breadcrumbs",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "eggs",
+                "quantity": "2"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Cacio e Pepe",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "spaghetti",
+                "quantity": "400 g"
+            },
+            {
+                "name": "pecorino",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "black pepper",
+                "quantity": "2 tsp"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Cannoli",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "cannoli shells",
+                "quantity": "12"
+            },
+            {
+                "name": "ricotta",
+                "quantity": "2 cups"
+            },
+            {
+                "name": "powdered sugar",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "chocolate chips",
+                "quantity": "1/2 cup"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Fettuccine Alfredo",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "fettuccine",
+                "quantity": "400 g"
+            },
+            {
+                "name": "butter",
+                "quantity": "1/2 cup"
+            },
+            {
+                "name": "heavy cream",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "parmesan",
+                "quantity": "1 cup"
+            }
+        ],
+        "instructions": [
+            "Prepare all ingredients.",
+            "Cook primary components according to traditional method.",
+            "Combine ingredients and simmer until flavors meld.",
+            "Adjust seasoning to taste.",
+            "Serve warm and enjoy."
+        ]
+    },
+    {
+        "title": "Chicken Marsala",
+        "yieldAmount": 4,
+        "ingredients": [
+            {
+                "name": "all-purpose flour (for coating)",
+                "quantity": "1/4 cup"
+            },
+            {
+                "name": "salt",
+                "quantity": "1/2 tsp"
+            },
+            {
+                "name": "ground black pepper",
+                "quantity": "1/4 tsp"
+            },
+            {
+                "name": "dried oregano",
+                "quantity": "1/2 tsp"
+            },
+            {
+                "name": "medium skinless, boneless chicken breast halves",
+                "quantity": "4"
+            },
+            {
+                "name": "butter",
+                "quantity": "4 tbsp"
+            },
+            {
+                "name": "olive oil",
+                "quantity": "4 tbsp"
+            },
+            {
+                "name": "sliced mushrooms",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "Marsala wine",
+                "quantity": "1/2 cup"
+            },
+            {
+                "name": "Sherry wine",
+                "quantity": "1/4 cup"
+            }
+        ],
+        "instructions": [
+            "Gather all ingredients.",
+            "In a shallow dish or bowl, mix together the flour, salt, pepper and oregano.",
+            "Coat chicken pieces in flour mixture.",
+            "In a large skillet, melt butter in olive oil over medium heat. Place chicken in the pan, and lightly brown.",
+            "Turn over chicken pieces, and add mushrooms. Pour in wine and sherry.",
+            "Cover skillet; simmer chicken 10 minutes, turning once, until no longer pink and juices run clear.",
+            "Serve hot and enjoy!"
+        ]
+    }
+]

@@ -1,4 +1,7 @@
+from typing import Annotated
+
 from fastapi import APIRouter, Depends, status, HTTPException, Path, Query, Body
+from pydantic import StringConstraints
 import re
 from pymongo.errors import DuplicateKeyError
 
@@ -9,12 +12,13 @@ from api.models.user import User
 
 router = APIRouter(prefix="/recipe", tags=["Recipes"])
 
+RecipeTitle = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=100)]
+
 @router.get("/{search_phrase}",
          summary="Return all recipes that sufficiently match the provided phrase",
          description="The search phrase can be a partial or complete match to a recipe title.",
-         status_code=status.HTTP_200_OK,
-         responses={status.HTTP_404_NOT_FOUND: {"description": "Recipe not found"}})
-async def get_recipe(search_phrase: str = Path(description="partial or complete recipe title to retrieve"),
+         status_code=status.HTTP_200_OK)
+async def get_recipe(search_phrase: RecipeTitle = Path(description="partial or complete recipe title to retrieve"),
                     limit: int = Query(10, ge=1, le=100, description="Maximum number of items to return"),
                     user: User = Depends(get_current_user)) -> list[RecipeSchema]:
     # Perform case-insensitive partial-text matching using a regex on the `title` field.
@@ -25,9 +29,6 @@ async def get_recipe(search_phrase: str = Path(description="partial or complete 
         "title": regex
     })
     results = await cursor.to_list(length=limit)
-
-    if not results:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Recipe not found")
 
     return [RecipeSchema(organization=document.organization,
                         title=document.title,
@@ -42,7 +43,7 @@ async def get_recipe(search_phrase: str = Path(description="partial or complete 
          responses={
              status.HTTP_409_CONFLICT: {"description": "A recipe with that title already exists in your organization"},
          })
-async def create_recipe(title: str = Path(description="complete recipe title to create"),
+async def create_recipe(title: RecipeTitle = Path(description="complete recipe title to create"),
                         recipe: RecipeWrite = Body(description="new recipe contents"),
                         user: User = Depends(get_current_user)) -> RecipeSchema:
     document = await RecipeModel.find_one({
@@ -85,7 +86,7 @@ async def create_recipe(title: str = Path(description="complete recipe title to 
              status.HTTP_404_NOT_FOUND: {"description": "Recipe not found"},
              status.HTTP_409_CONFLICT: {"description": "A recipe with that title already exists in your organization"},
          })
-async def update_recipe(title: str = Path(description="complete recipe title to edit"),
+async def update_recipe(title: RecipeTitle = Path(description="complete recipe title to edit"),
                         recipe: RecipeWrite = Body(description="new recipe contents to overwrite the existing data"),
                         user: User = Depends(get_current_user)) -> RecipeSchema:
     document = await RecipeModel.find_one({
@@ -126,7 +127,7 @@ async def update_recipe(title: str = Path(description="complete recipe title to 
              status.HTTP_404_NOT_FOUND: {"description": "Recipe not found"},
              status.HTTP_500_INTERNAL_SERVER_ERROR: {"description": "Recipe could not be deleted"},
          })
-async def delete_recipe(title: str = Path(description="complete recipe title to delete"),
+async def delete_recipe(title: RecipeTitle = Path(description="complete recipe title to delete"),
                         user: User = Depends(get_current_user)):
     document = await RecipeModel.find_one({
         "organization": user.organization,

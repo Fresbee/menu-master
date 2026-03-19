@@ -1,5 +1,6 @@
 from beanie import Document
 from pydantic import EmailStr
+from pymongo import ASCENDING, IndexModel
 
 class User(Document):
     """
@@ -18,4 +19,10 @@ class User(Document):
 
     class Settings:
         name = "users"
-        indexes = ["email"]
+        indexes = [
+            IndexModel(
+                [("email", ASCENDING)],
+                name="user_email_unique",
+                unique=True,
+            )
+        ]

@@ -1,26 +1,28 @@
 from beanie import Document
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, StringConstraints
 from pymongo import ASCENDING, IndexModel
-from typing import List
+from typing import Annotated, List
+
+NonEmptyStr = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
 class Ingredient(BaseModel):
     """
     Defines a food ingredient and its quantity
     """
 
-    name: str = Field(description="Ingredient name and details")
-    quantity: str = Field(description="Quantity and unit")
+    name: NonEmptyStr = Field(description="Ingredient name and details")
+    quantity: NonEmptyStr = Field(description="Quantity and unit")
 
 class Recipe(Document):
     """
     Defines a recipe representing everything needed to prepare a food dish
     """
 
-    organization: str = Field(description="Organization that owns this recipe")
+    organization: NonEmptyStr = Field(description="Organization that owns this recipe")
     title: str = Field(description="Recipe title")
     yieldAmount: int = Field(description="Number of servings")
     ingredients: List[Ingredient] = Field(description="List of ingredients")
-    instructions: List[str] = Field(description="Step-by-step instructions")
+    instructions: List[NonEmptyStr] = Field(description="Step-by-step instructions")
 
     def __str__(self):
         return f"'{self.title}': owned by {self.organization}"

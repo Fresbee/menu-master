@@ -209,3 +209,188 @@ How can we enforce required fields on the Recipe schema? This is important for t
 ---
 
 In order to exercise this API, would you be able to generate some automated tests? The goal is check for HTTP status codes and responses for the inputs. Focus on the /recipe endpoints, since authentication has been tested in other ways. The Python unittest framework seems like a good basis for this.
+
+---
+
+I am building a food recipe management app. One of my endpoints uploads recipe data in the format of this example:
+
+{
+    "title": "Chicken Marsala",
+    "yieldAmount": 4,
+    "ingredients": [
+        { "name": "all-purpose flour (for coating)", "quantity": "1/4 cup" },
+        { "name": "salt", "quantity": "1/2 tsp" },
+        { "name": "ground black pepper", "quantity": "1/4 tsp" },
+        { "name": "dried oregano", "quantity": "1/2 tsp" },
+        { "name": "medium skinless, boneless chicken breast halves", "quantity": "4" },
+        { "name": "butter", "quantity": "4 tbsp" },
+        { "name": "olive oil", "quantity": "4 tbsp" },
+        { "name": "sliced mushrooms", "quantity": "1 cup" },
+        { "name": "Marsala wine", "quantity": "1/2 cup" },
+        { "name": "Sherry wine", "quantity": "1/4 cup" }
+    ],
+    "instructions": [
+        "Gather all ingredients.",
+        "In a shallow dish or bowl, mix together the flour, salt, pepper and oregano.",
+        "Coat chicken pieces in flour mixture.",
+        "In a large skillet, melt butter in olive oil over medium heat. Place chicken in the pan, and lightly brown.",
+        "Turn over chicken pieces, and add mushrooms. Pour in wine and sherry.",
+        "Cover skillet; simmer chicken 10 minutes, turning once, until no longer pink and juices run clear.",
+        "Serve hot and enjoy!"
+    ]
+}
+
+Would you be able to generate 30 different recipes with this format and output them into a JSON file? I would like you to make more realistic recipes with actual named dishes and varied ingredients. Tailor them to Italian cuisine please.
+
+---
+
+For the next level of realism, please fully customize each recipe with authentic, unique ingredients (not templated). Please include corresponding instructions for each recipe.
+
+---
+
+Looking at the current FastAPI endpoints, please suggest any edge cases that should be addressed.
+
+---
+
+Good findings. Would you be able to patch the following:
+Recipe titles in the path will break for some valid real-world titles. A title containing / cannot be addressed cleanly as /recipe/{title}, and titles with only whitespace or very long values are currently accepted because the path parameter has no extra validation. This affects create, update, delete, and search. --> Reject strings with only whitespace or strings with a title > 100 characters.
+
+Several fields allow technically valid but useless data. organization, password, ingredient name, ingredient quantity, and instruction strings can all be empty/blank strings, so you can create accounts and recipes that pass validation but are effectively malformed. --> Reject empty/blank strings for these fields.
+
+Search has a couple of tricky cases. /recipe/{search_phrase} uses a case-insensitive .*phrase.* regex, which can become a collection scan for common phrases and may return large ambiguous result sets with no stable sort. Also, “no matches” returns 404 instead of 200 [], which may make client search UX awkward. --> Return 200 OK [] when no results are located for a search phrase.
+
+Next, please fix the following:
+
+Duplicate user creation under race conditions is still possible. register() only does a pre-check with find_one() and then inserts, but the users model does not define a unique email index, so two concurrent requests can create the same account. --> Make the email field a unique constraint in the User collection
+
+Auth behavior is inconsistent for browser clients. login() sets access_token and refresh_token cookies, but protected endpoints only read the Authorization header via HTTPBearer, not the cookie, so a browser session with cookies alone still cannot call /recipe/*. register() also returns tokens but does not set cookies at all. --> leverage browser session cookies for the GET, POST, PUT, and DELETE endpoints
+
+---
+
+I see this error message when starting the api container service. It may have to do with the existing index approach I had before your recent changes:
+
+ERROR:    Application startup failed. Exiting.
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+Initializing database connection...
+ERROR:    Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/starlette/routing.py", line 694, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+               ~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/usr/local/lib/python3.13/contextlib.py", line 214, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/fastapi/routing.py", line 206, in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+               ~~~~~~~~~~~~~~~~^^^^^
+  File "/usr/local/lib/python3.13/contextlib.py", line 214, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/fastapi/routing.py", line 206, in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+               ~~~~~~~~~~~~~~~~^^^^^
+  File "/usr/local/lib/python3.13/contextlib.py", line 214, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/code/api/main.py", line 12, in lifespan
+    await init_db()
+  File "/code/api/core/database.py", line 15, in init_db
+    await init_beanie(
+    ...<6 lines>...
+    )
+  File "/usr/local/lib/python3.13/site-packages/beanie/odm/utils/init.py", line 780, in init_beanie
+    await Initializer(
+    ...<6 lines>...
+    )
+  File "/usr/local/lib/python3.13/site-packages/beanie/odm/utils/init.py", line 131, in __await__
+    yield from self.init_class(model).__await__()
+  File "/usr/local/lib/python3.13/site-packages/beanie/odm/utils/init.py", line 743, in init_class
+    await self.init_document(cls)
+  File "/usr/local/lib/python3.13/site-packages/beanie/odm/utils/init.py", line 607, in init_document
+    await self.init_indexes(cls, self.allow_index_dropping)
+  File "/usr/local/lib/python3.13/site-packages/beanie/odm/utils/init.py", line 559, in init_indexes
+    new_indexes += await collection.create_indexes(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        IndexModelField.list_to_index_model(new_indexes)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/pymongo/asynchronous/collection.py", line 2227, in create_indexes
+    return await self._create_indexes(indexes, session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/pymongo/_csot.py", line 115, in csot_wrapper
+    return await func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/pymongo/asynchronous/collection.py", line 2264, in _create_indexes
+    await self._command(
+    ...<6 lines>...
+    )
+  File "/usr/local/lib/python3.13/site-packages/pymongo/asynchronous/collection.py", line 620, in _command
+    return await conn.command(
+           ^^^^^^^^^^^^^^^^^^^
+    ...<14 lines>...
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/pymongo/asynchronous/helpers.py", line 47, in inner
+    return await func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/pymongo/asynchronous/pool.py", line 398, in command
+    return await command(
+           ^^^^^^^^^^^^^^
+    ...<22 lines>...
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/pymongo/asynchronous/network.py", line 212, in command
+    helpers_shared._check_command_response(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        response_doc,
+        ^^^^^^^^^^^^^
+    ...<2 lines>...
+        parse_write_concern_error=parse_write_concern_error,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/pymongo/helpers_shared.py", line 284, in _check_command_response
+    raise OperationFailure(errmsg, code, response, max_wire_version)
+pymongo.errors.OperationFailure: An existing index has the same name as the requested index. When index names are not specified, they are auto generated and can cause conflicts. Please refer to our documentation. Requested index: { v: 2, unique: true, key: { email: 1 }, name: "email_1" }, existing index: { v: 2, key: { email: 1 }, name: "email_1" }, full error: {'ok': 0.0, 'errmsg': 'An existing index has the same name as the requested index. When index names are not specified, they are auto generated and can cause conflicts. Please refer to our documentation. Requested index: { v: 2, unique: true, key: { email: 1 }, name: "email_1" }, existing index: { v: 2, key: { email: 1 }, name: "email_1" }', 'code': 86, 'codeName': 'IndexKeySpecsConflict'}
+
+---
+
+Next I see an unexpected error here:
+
+RROR:    Application startup failed. Exiting.
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+Initializing database connection...
+ERROR:    Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/starlette/routing.py", line 694, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+               ~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/usr/local/lib/python3.13/contextlib.py", line 214, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/fastapi/routing.py", line 206, in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+               ~~~~~~~~~~~~~~~~^^^^^
+  File "/usr/local/lib/python3.13/contextlib.py", line 214, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/fastapi/routing.py", line 206, in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+               ~~~~~~~~~~~~~~~~^^^^^
+  File "/usr/local/lib/python3.13/contextlib.py", line 214, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/code/api/main.py", line 12, in lifespan
+    await init_db()
+  File "/code/api/core/database.py", line 15, in init_db
+    await ensure_user_email_unique_index(client[settings.mongodb_db])
+  File "/code/api/core/database.py", line 56, in ensure_user_email_unique_index
+    duplicates = await duplicate_cursor.to_list(length=1)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'coroutine' object has no attribute 'to_list'
+
+/usr/local/lib/python3.13/site-packages/uvicorn/lifespan/on.py:91: RuntimeWarning: coroutine 'AsyncCollection.aggregate' was never awaited
+  return
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+ERROR:    Application startup failed. Exiting.
