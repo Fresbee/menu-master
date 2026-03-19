@@ -1,0 +1,9 @@
+fastapi[standard]==0.124.4
+uvicorn[standard]==0.24.0
+beanie==2.0.1
+pydantic
+pydantic[email]
+pydantic_settings
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+argon2-cffi

@@ -1,0 +1,54 @@
+services:
+  # web:
+  #   build: ./web
+  #   restart: unless-stopped
+  #   depends_on:
+  #     api:
+  #       condition: service_healthy
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+  #     interval: 5s
+  #     timeout: 5s
+  #     retries: 10
+  #     start_period: 10s
+  #   ports:
+  #     - 3000:3000
+  #   environment:
+  #     - API_URL=http://api:8080
+  #     - INTERNAL_APP_URL=http://web:3000
+  api:
+    build: ./api
+    restart: unless-stopped
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/healthcheck"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+      start_period: 2s
+    env_file:
+      - .env-mongo-access
+    ports:
+      - 8080:8080
+  mongodb:
+    image: mongo:latest
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 20s
+      retries: 5
+      start_period: 10s
+    env_file:
+      - .env-mongo-access
+      - .env-mongo-master
+    volumes:
+      - mongo-data:/data/db
+      # Mount the .js files and run them to initialize the MongoDB database
+      - ./init:/docker-entrypoint-initdb.d
+    ports:
+      - 27017:27017
+volumes:
+  mongo-data:
