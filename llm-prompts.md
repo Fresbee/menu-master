@@ -180,3 +180,23 @@ beanie.exceptions.CollectionWasNotInitialized
 
 This solved the issue. Next I only want to return recipes that match the organization of the logged in user. The TODO comment in routes/recipe.py is where I envisioned narrowing the returned results. Would you be able to make this change?
 
+---
+
+Next I would like to add an edit endpoint called PUT /recipe/{title}. It allows a user to update the contents of a recipe within their organization as long as the full title is an exact match. This would live in the /routes/recipe.py file. What do you recommend to ensure we only modify one recipe in this endpoint?
+
+For ease of use, the logged in user already has the organization. We can use user.organization for that. Would you be able to modify models/recipe.py to have a compound index like you described? And would you modify routes/recipe.py to have a corresponding implementation?
+
+---
+
+I see a type mismatch in the update_recipe() function in routes/recipes.py. The MongoDB data model has ingredients: List[Ingredient], but the schemas/recipe.py has ingredients: list[dict]. How can this type mismatch be resolved? I would like to preserve the MongoDB model as-is.
+
+---
+
+I would also like to add a DELETE /recipe/{title} endpoint. Similarly, a user can only delete a recipe that belongs to the same organization as them. Please modify the code in routes/recipe.py to make this addition.
+
+---
+
+Would you be able to tweak the delete_recipe() method to return an HTTP 500-series error is the document.delete() fails to work?
+
+---
+

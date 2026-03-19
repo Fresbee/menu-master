@@ -1,5 +1,6 @@
 from beanie import Document
 from pydantic import BaseModel, Field
+from pymongo import ASCENDING, IndexModel
 from typing import List
 
 class Ingredient(BaseModel):
@@ -31,4 +32,9 @@ class Recipe(Document):
     
     class Settings:
         name = "recipes"
-        indexes = ["title"]
+        indexes = [
+            IndexModel(
+                [("organization", ASCENDING), ("title", ASCENDING)],
+                unique=True,
+            )
+        ]

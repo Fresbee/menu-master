@@ -1,5 +1,6 @@
-from fastapi import APIRouter, Depends, status, HTTPException, Path, Query
+from fastapi import APIRouter, Depends, status, HTTPException, Path, Query, Body
 import re
+from pymongo.errors import DuplicateKeyError
 
 from api.schemas.recipe import Recipe as RecipeSchema
 from api.models.recipe import Recipe as RecipeModel
@@ -33,3 +34,72 @@ async def get_recipe(search_phrase: str = Path(description="partial or complete 
                         yieldAmount=document.yieldAmount,
                         ingredients=getattr(document, "ingredients", []) or [],
                         instructions=getattr(document, "instructions", []) or []) for document in results]
+
+@router.put("/{title}",
+         summary="Update a recipe's content that exactly matches the provided title",
+         description="The recipe title must be an exact match.",
+         status_code=status.HTTP_200_OK,
+         responses={
+             status.HTTP_404_NOT_FOUND: {"description": "Recipe not found"},
+             status.HTTP_409_CONFLICT: {"description": "A recipe with that title already exists in your organization"},
+         })
+async def update_recipe(title: str = Path(description="complete recipe title to edit"),
+                        recipe: RecipeSchema = Body(description="new recipe contents to overwrite the existing data"),
+                        user: User = Depends(get_current_user)) -> RecipeSchema:
+    document = await RecipeModel.find_one({
+        "organization": user.organization,
+        "title": title,
+    })
+
+    if document is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Recipe not found")
+
+    document.organization = user.organization
+    document.title = recipe.title
+    document.yieldAmount = recipe.yieldAmount
+    document.ingredients = recipe.ingredients
+    document.instructions = recipe.instructions
+
+    try:
+        await document.save()
+    except DuplicateKeyError:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="A recipe with that title already exists in your organization",
+        )
+
+    return RecipeSchema(
+        organization=document.organization,
+        title=document.title,
+        yieldAmount=document.yieldAmount,
+        ingredients=document.ingredients,
+        instructions=document.instructions,
+    )
+
+@router.delete("/{title}",
+         summary="Delete a recipe that exactly matches the provided title",
+         description="The recipe title must be an exact match.",
+         status_code=status.HTTP_200_OK,
+         responses={
+             status.HTTP_404_NOT_FOUND: {"description": "Recipe not found"},
+             status.HTTP_500_INTERNAL_SERVER_ERROR: {"description": "Recipe could not be deleted"},
+         })
+async def delete_recipe(title: str = Path(description="complete recipe title to delete"),
+                        user: User = Depends(get_current_user)):
+    document = await RecipeModel.find_one({
+        "organization": user.organization,
+        "title": title,
+    })
+
+    if document is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Recipe not found")
+
+    try:
+        await document.delete()
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Recipe could not be deleted",
+        )
+
+    return {"deleted": True, "title": title}
