@@ -5,7 +5,7 @@ from pydantic import StringConstraints
 import re
 from pymongo.errors import DuplicateKeyError
 
-from api.schemas.recipe import Recipe as RecipeSchema, RecipeWrite
+from api.schemas.recipe import Recipe as RecipeSchema, RecipeWrite, RecipeUpdate
 from api.models.recipe import Recipe as RecipeModel
 from api.auth.endpoint_dependencies import get_current_user
 from api.models.user import User
@@ -87,7 +87,7 @@ async def create_recipe(title: RecipeTitle = Path(description="complete recipe t
              status.HTTP_409_CONFLICT: {"description": "A recipe with that title already exists in your organization"},
          })
 async def update_recipe(title: RecipeTitle = Path(description="complete recipe title to edit"),
-                        recipe: RecipeWrite = Body(description="new recipe contents to overwrite the existing data"),
+                        recipe: RecipeUpdate = Body(description="new recipe contents to overwrite the existing data"),
                         user: User = Depends(get_current_user)) -> RecipeSchema:
     document = await RecipeModel.find_one({
         "organization": user.organization,
@@ -98,7 +98,7 @@ async def update_recipe(title: RecipeTitle = Path(description="complete recipe t
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Recipe not found")
 
     document.organization = user.organization
-    document.title = title
+    document.title = recipe.title
     document.yieldAmount = recipe.yieldAmount
     document.ingredients = recipe.ingredients
     document.instructions = recipe.instructions

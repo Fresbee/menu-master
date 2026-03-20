@@ -5,6 +5,7 @@ from pydantic import BaseModel, Field, StringConstraints
 from api.models.recipe import Ingredient
 
 NonEmptyStr = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
+RecipeTitle = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=100)]
 
 class RecipeWrite(BaseModel):
     yieldAmount: int = Field(
@@ -21,12 +22,18 @@ class RecipeWrite(BaseModel):
         min_length=1,
     )
 
+class RecipeUpdate(RecipeWrite):
+    title: RecipeTitle = Field(
+        description="name of the recipe",
+        examples=["Chicken Marsala"],
+    )
+
 class Recipe(RecipeWrite):
     organization: NonEmptyStr = Field(
         description="restaurant that owns this recipe as intellectual property",
         examples=["Tuscan Dreams"],
     )
-    title: str = Field(..., description="name of the recipe", examples=["Chicken Marsala"])
+    title: RecipeTitle = Field(..., description="name of the recipe", examples=["Chicken Marsala"])
 
     class Config:
         json_schema_extra = {

@@ -422,3 +422,17 @@ Next I would like you to split the horizontal area of the white rectangle into t
 
 ---
 
+Next I would like to add an "Edit" button in the upper right corner of the recipe display pane. When the user clicks "Edit", they will be able to modify the following:
+
+* recipe title (string)
+* integer number for the yield
+* add a new ingredient, edit existing ingredients, or remove ingredients
+* add a new instruction step, edit existing instruction steps, or remove an instruction step
+
+The PUT /recipe/{title} endpoint shall be used to save the updated recipe.
+
+---
+
+I would like to add a "Delete" button to the right of the "Edit" button in the display pane. The "Delete" button should be less prominent by having the same background color as preview pane area.
+
+When clicking the "Delete" button, a modal appears. The modal says "Are you sure you would like to delete this recipe? This action cannot be reversed." If they click "Yes", the DELETE /recipe/{title} endpoint is invoked and deletes the recipe from the database. The modal is dismissed. If they click "No", the modal is only dismissed. 
