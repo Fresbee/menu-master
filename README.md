@@ -74,15 +74,43 @@ When a user selects a chosen recipe, they are free to edit it by clicking the "E
 
 When a user selects a chosen recipe, they are free to delete it. Clicking the "delete" button will display a modal to ask the user to confirm this action. Confirming this action will delete that recipe from the database.
 
-## Architecture
+## Architectural Considerations
 
-### Current Technology Stack
+### Docker
 
-* Linux (operating system)
-* Docker + Docker Compose
-* MongoDB (database)
-* FastAPI (API logic for authentication and CRUD actions)
-* Next.js and Tailwind CSS (front-end UI)
+Several considerations were made when designing Menu Master. First, it leverages Docker containers for all key services. This allows development on local machines as well as deployment to a variety of computing resources (AWS, Microsoft Azure, etc.). Another benefit is scalability. Docker containers can be dynamically provisioned as demand increases. This can be accomplished via Kubernetes, AWS Elastic Container Service (Fargate), or other such services.
+
+For local development, Docker Compose is an efficient way to spawn all interconnected services. Only one instance of each container is created, but this is helpful to manage a platform-independent feature roadmap. Below is a high-level view into all deployed services.
+
+```mermaid
+architecture-beta
+    group menu_master(cloud)[Menu Master]
+
+    service db(database)[MongoDB Container] in menu_master
+    service api(logos:fastapi)[Menu Master API Container] in menu_master
+    service cache(logos:redis)[Valkey Cache] in menu_master
+    service ui(logos:nextjs)[User Interface Container] in menu_master
+
+    db:L <--> R:api
+    cache:L <--> T:api
+    api:L <--> R:ui
+```
+
+### FastAPI
+
+API logic for authentication and CRUD actions
+
+### MongoDB
+
+### Next.js + Tailwind CSS
+
+
+### Future Roadmap
+
+Valkey cache
+Load balancing
+Horizontal scaling
+Domain name and TLS certificates
 
 ## Dependencies
 

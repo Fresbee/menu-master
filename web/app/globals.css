@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply min-h-screen bg-cream text-ink antialiased;
+  background-image:
+    radial-gradient(circle at top left, rgba(199, 152, 68, 0.2), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(18, 38, 32, 0.16), transparent 30%),
+    linear-gradient(135deg, #f7f3ea 0%, #eef5f1 100%);
+}
+
+button,
+input {
+  @apply transition duration-200 ease-out;
+}

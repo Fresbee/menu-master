@@ -92,6 +92,22 @@ async def refresh(request: Request, response: Response) -> TokenResponse:
     return tokens
 
 
+@router.post("/logout",
+             summary="End the current session and clear authentication cookies.",
+             description="Deletes the stored refresh token when present and removes the session cookies.",
+             status_code=status.HTTP_200_OK)
+async def logout(request: Request, response: Response) -> dict:
+    refresh_token = request.cookies.get("refresh_token")
+
+    if refresh_token:
+        token = await RefreshToken.find_one({"token": refresh_token})
+        if token:
+            await token.delete()
+
+    clear_session_cookies(response)
+    return {"logged_out": True}
+
+
 async def issue_tokens(user: User) -> TokenResponse:
     """
     For the given user, create and return new access and refresh tokens.
@@ -134,3 +150,8 @@ def set_session_cookies(response: Response, tokens: TokenResponse) -> None:
         samesite="lax",
         path="/"
     )
+
+
+def clear_session_cookies(response: Response) -> None:
+    response.delete_cookie(key="refresh_token", path="/auth/refresh")
+    response.delete_cookie(key="access_token", path="/")

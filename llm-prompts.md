@@ -394,3 +394,19 @@ AttributeError: 'coroutine' object has no attribute 'to_list'
   return
 RuntimeWarning: Enable tracemalloc to get the object allocation traceback
 ERROR:    Application startup failed. Exiting.
+
+---
+
+I would like to build a Next.js and Tailwind CSS front-end web application using the API. I created a directory called web which houses a Dockerfile. The docker-compose.yaml file will start up the service. Please do the following:
+
+1. Create a new Next.js + Tailwind CSS project in the web directory.
+2. Create a login page that has the title text "Menu Master", a field for email address, a field for password, and a login button. A successful login (with the POST /auth/login endpoint) will navigate to a new page that says "Landing Page". An auth cookie shall be stored, so the Recipe endpoints can be later integrated.
+3. The Landing Page shall have a logout button in the upper-right corner. Clicking this button shall close the existing session and tear down the auth cookie.
+
+---
+
+I would like you to add a search bar to the top of the Landing Page page with a "Search" button to the right of it. When a user clicks the "Search" button, this invokes the GET /recipe/{search_phrase} endpoint. Please display the titles of all matching search results below the search bar.
+
+---
+
+Please update the /landing page.tsx to support vertical scrolling if there are more search results than the vertical area of the page.
