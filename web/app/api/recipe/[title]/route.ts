@@ -1,5 +1,5 @@
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { fetchApiWithSession } from "@/lib/session";
 
 type Ingredient = {
   quantity: string;
@@ -13,34 +13,21 @@ type RecipeUpdate = {
   instructions: string[];
 };
 
-async function getAccessToken() {
-  const cookieStore = await cookies();
-  return cookieStore.get("access_token")?.value;
-}
-
 export async function PUT(
   request: Request,
   context: { params: Promise<{ title: string }> },
 ) {
   const { title } = await context.params;
-  const accessToken = await getAccessToken();
-
-  if (!accessToken) {
-    return NextResponse.json({ detail: "Not authenticated." }, { status: 401 });
-  }
-
   const body = (await request.json()) as RecipeUpdate;
 
-  const apiResponse = await fetch(
-    `${process.env.API_URL}/recipe/${encodeURIComponent(title)}`,
+  const apiResponse = await fetchApiWithSession(
+    `/recipe/${encodeURIComponent(title)}`,
     {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Cookie: `access_token=${accessToken}`,
       },
       body: JSON.stringify(body),
-      cache: "no-store",
     },
   );
 
@@ -66,20 +53,11 @@ export async function DELETE(
   context: { params: Promise<{ title: string }> },
 ) {
   const { title } = await context.params;
-  const accessToken = await getAccessToken();
 
-  if (!accessToken) {
-    return NextResponse.json({ detail: "Not authenticated." }, { status: 401 });
-  }
-
-  const apiResponse = await fetch(
-    `${process.env.API_URL}/recipe/${encodeURIComponent(title)}`,
+  const apiResponse = await fetchApiWithSession(
+    `/recipe/${encodeURIComponent(title)}`,
     {
       method: "DELETE",
-      headers: {
-        Cookie: `access_token=${accessToken}`,
-      },
-      cache: "no-store",
     },
   );
 

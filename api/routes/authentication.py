@@ -1,8 +1,9 @@
-from fastapi import APIRouter, HTTPException, Response, Request, status
+from fastapi import APIRouter, Depends, HTTPException, Response, Request, status
 from datetime import datetime, timezone
 from pymongo.errors import DuplicateKeyError
 
 from api.auth.security import create_access_token, create_refresh_token, hash_password, verify_password
+from api.auth.endpoint_dependencies import get_current_user
 from api.models.user import User
 from api.models.refresh_token import RefreshToken
 from api.schemas.auth import LoginRequest, RegisterRequest, TokenResponse
@@ -90,6 +91,17 @@ async def refresh(request: Request, response: Response) -> TokenResponse:
     tokens = await issue_tokens(user)
     set_session_cookies(response, tokens)
     return tokens
+
+
+@router.get("/me",
+            summary="Return the currently authenticated user's profile.",
+            description="Provides basic account details for the active session.",
+            status_code=status.HTTP_200_OK)
+async def me(user: User = Depends(get_current_user)) -> dict:
+    return {
+        "email": user.email,
+        "organization": user.organization,
+    }
 
 
 @router.post("/logout",

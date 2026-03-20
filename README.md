@@ -165,14 +165,12 @@ Next.js is a powerful front-end framework to design effective user interfaces. T
 
 Here are some future items to consider for extending this project.
 
-### Supporting 5,000 to 10,000 requests per day
-
-#### Valkey (a.k.a. Redis) Caching
+### Valkey (a.k.a. Redis) Caching
 Valkey is the open source fork of Redis, a performant data caching engine. If the same recipes are repeatedly queried, a cache may provide better performance. This can reduce the longer duration operations of querying the database, especially when it is a contested resource.
 
 We must take care to ensure there is adequate memory allocated to the cache. Otherwise there is a risk of thrashing, when cache misses repeatedly occur and displace existing data.
 
-#### Horizontal scaling
+### Horizontal scaling
 
 Spawn additional instances of containers to distribute workloads. This can be accomplished by a provisioning system like Kubernetes, AWS Fargate, etc. Auto-scaling can be configured to create more container instances if traffic spikes after a certain amount of time.
 

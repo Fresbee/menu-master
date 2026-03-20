@@ -436,3 +436,18 @@ The PUT /recipe/{title} endpoint shall be used to save the updated recipe.
 I would like to add a "Delete" button to the right of the "Edit" button in the display pane. The "Delete" button should be less prominent by having the same background color as preview pane area.
 
 When clicking the "Delete" button, a modal appears. The modal says "Are you sure you would like to delete this recipe? This action cannot be reversed." If they click "Yes", the DELETE /recipe/{title} endpoint is invoked and deletes the recipe from the database. The modal is dismissed. If they click "No", the modal is only dismissed. 
+
+---
+
+Please add the logged in user's email address to the left of the "Logout" button on the /landing page. This shows who is logged in.
+
+Please remove the oval border around the sessionUser.email on the landing page. Change the sessionUser's email to just be plain text.
+
+---
+
+Please find any edge cases for authentication and session management. Plan but do not implement ways to improve this.
+
+---
+
+Please add automatic refresh handling in the web tier. 
+Create a server-side refresh utility that retries protected API calls once on 401, calls /auth/refresh, updates cookies, and then replays the original request. I have a POST /auth/refresh endpoint, but this needs to be integrated into the web tier.

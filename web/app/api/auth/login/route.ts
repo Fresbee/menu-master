@@ -1,5 +1,5 @@
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { setSessionCookies } from "@/lib/session";
 
 type LoginPayload = {
   email?: string;
@@ -10,8 +10,6 @@ type TokenResponse = {
   access_token: string;
   refresh_token: string;
 };
-
-const ONE_DAY_IN_SECONDS = 60 * 60 * 24;
 
 export async function POST(request: Request) {
   const body = (await request.json()) as LoginPayload;
@@ -51,24 +49,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const tokens = data as TokenResponse;
-  const cookieStore = await cookies();
-
-  cookieStore.set("access_token", tokens.access_token, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: false,
-    path: "/",
-    maxAge: ONE_DAY_IN_SECONDS,
-  });
-
-  cookieStore.set("refresh_token", tokens.refresh_token, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: false,
-    path: "/",
-    maxAge: ONE_DAY_IN_SECONDS * 30,
-  });
+  await setSessionCookies(data as TokenResponse);
 
   return NextResponse.json({ success: true });
 }

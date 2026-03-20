@@ -1,5 +1,5 @@
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { fetchApiWithSession } from "@/lib/session";
 
 type Ingredient = {
   quantity: string;
@@ -24,24 +24,9 @@ export async function GET(request: Request) {
     );
   }
 
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get("access_token")?.value;
-
-  if (!accessToken) {
-    return NextResponse.json({ detail: "Not authenticated." }, { status: 401 });
-  }
-
-  const apiResponse = await fetch(
-    `${process.env.API_URL}/recipe/${encodeURIComponent(searchPhrase)}`,
-    {
-      method: "GET",
-      headers: {
-        Cookie: `access_token=${accessToken}`,
-      },
-      cache: "no-store",
-    },
+  const apiResponse = await fetchApiWithSession(
+    `/recipe/${encodeURIComponent(searchPhrase)}`,
   );
-
   const data = await apiResponse.json().catch(() => []);
 
   if (!apiResponse.ok) {
