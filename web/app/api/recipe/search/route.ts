@@ -1,8 +1,16 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
+type Ingredient = {
+  quantity: string;
+  name: string;
+};
+
 type Recipe = {
   title: string;
+  yieldAmount: number;
+  ingredients: Ingredient[];
+  instructions: string[];
 };
 
 export async function GET(request: Request) {
@@ -48,7 +56,5 @@ export async function GET(request: Request) {
     );
   }
 
-  return NextResponse.json(
-    (data as Recipe[]).map((recipe) => ({ title: recipe.title })),
-  );
+  return NextResponse.json(data as Recipe[]);
 }

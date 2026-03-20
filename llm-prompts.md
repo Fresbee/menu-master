@@ -410,3 +410,15 @@ I would like you to add a search bar to the top of the Landing Page page with a 
 ---
 
 Please update the /landing page.tsx to support vertical scrolling if there are more search results than the vertical area of the page.
+
+---
+
+Next I would like you to split the horizontal area of the white rectangle into two sections. In the left section, move the SEARCH RESULTS component. In the right section, create an empty panel. This empty panel shall be populated when the user clicks on any of the search results. Clicking a recipe in the search results shall display the following information already retrieved via the GET /recipe/{search_phrase} endpoint:
+
+* recipe title
+* yield (Displayed as "Yields N servings", where N is the yield integer value)
+* ingredients (the measurement quantity followed by the ingredient name)
+* step-by-step instructions (numbered as 1., 2., 3., etc.) 
+
+---
+
